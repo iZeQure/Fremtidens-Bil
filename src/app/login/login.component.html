@@ -1,0 +1,95 @@
+<!-- <div class="container">    
+    <div class="col-md-6 col-md-offset-3 loginBox">    
+        <h3>Log In</h3>    
+        <p *ngIf="message" class="text-center error">{{message}}</p>    
+      <form [formGroup]="loginForm" (ngSubmit)="login()">    
+          <div class="form-group clearfix" [ngClass]="{ 'has-error': submitted && f.userId.errors }">    
+              <label for="userId" class="col-md-3 col-sm-5 col-xs-12">Userid</label>    
+              <div class="col-md-9 col-sm-7 col-xs-12">    
+                  <input type="text" class="form-control" formControlName="userId" />    
+                  <div *ngIf="submitted && f.userid.errors" class="help-block">    
+                        <div *ngIf="f.userid.errors.required">Userid is required</div>    
+                  </div>    
+              </div>    
+          </div>    
+          <div class="form-group clearfix" [ngClass]="{ 'has-error': submitted && f.password.errors }">    
+            <label for="password" class="col-md-3 col-sm-5 col-xs-12">Password</label>    
+            <div class="col-md-9 col-sm-7 col-xs-12">    
+                <input type="password" class="form-control" formControlName="password"/>    
+                <div *ngIf="submitted && f.password.errors" class="help-block">    
+                        <div *ngIf="f.password.errors.required">Password is required</div>    
+                </div>    
+            </div>    
+          </div>    
+          <div class="col-xs-12 form-group text-right">    
+            <button class="btn btn-success" type="submit">Login</button>    
+          </div>
+      </form>
+    </div>
+</div> -->
+
+<div class="overflow-hidden" id="img-container">
+  <img src="../../assets/img/cyber-background.svg" class="position-fixed">
+</div>
+
+<div id="form-container" class="position-absolute">
+  <div class="rounded m-4 p-5" id="container-bg">
+    <!-- Error Message -->
+    <p *ngIf="message" class="alert alert-warning">{{message}}</p>
+
+    <!-- Login Form -->
+    <form class="text-white" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="inputEmail">Email:</label>
+        <input type="email" class="form-control form-control-lg"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="inputEmail" aria-describedby="emailHelp"
+          placeholder="Enter Email" formControlName="email">
+        <div *ngIf="submitted && f.email.errors">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="inputPassword">Password:</label>
+        <input type="password" class="form-control form-control-lg"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword"
+          aria-describedby="passwordHelp" placeholder="••••••••••" formControlName="password">
+        <div *ngIf="submitted && f.password.errors">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+
+      <!-- Login -->
+      <div class="form-group mx-auto text-center">
+        <!-- <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+          Log ind
+          <img *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </button> -->
+
+        <div *ngIf="loading; then loadingBlock else loginBlock"></div>
+
+        <ng-template #loadingBlock>
+          <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </button>
+        </ng-template>
+
+        <ng-template #loginBlock>
+          <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+            Log ind
+          </button>
+        </ng-template>
+      </div>
+
+    </form>
+
+    <!-- <a class="nav-link text-white text-center" href="#">Opret Bruger?</a> -->
+    <div class="mx-auto text-center">
+      <button class="btn btn-sm btn-outline-secondary text-white" [routerLink]="['/register']">Opret Bruger?</button>
+    </div>
+  </div>
+</div>

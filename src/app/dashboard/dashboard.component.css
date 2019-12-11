@@ -1,0 +1,62 @@
+#menu-container {
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    min-width: 660px;
+    min-height: auto;
+    z-index: 1;
+}
+
+/* #region Cardiology SVG */
+path.heart-left,
+path.heart-right {
+    fill: #57DCDD;
+}
+
+path.beat-left,
+path.beat-right {
+    fill: #3a4e93;
+}
+/* #endregion */
+
+/* #region Base Color Scheme SVG */
+path.power-tip,
+path.power-round,
+path.steering-wheel,
+path.parking-inside,
+path.parking-outside,
+path.user-head,
+path.user-body,
+path.logout-inside,
+path.logout-outside {
+    fill: #57DCDD;
+}
+/* #endregion */
+
+.custom-alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.custom-alert-info {
+    color: #fff;
+    background: rgba(23, 162, 184, 0.6);
+    border-color: #bee5eb;
+}
+
+.card {
+    border-radius: 50px;
+    max-width: 250px;
+    max-height: 250px;
+    min-width: 250px;
+    min-height: 250px;
+}
+
+.card>.card-img {
+    max-width: 150px;
+    height: auto;
+}
