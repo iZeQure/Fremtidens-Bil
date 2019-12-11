@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import { ILogin } from '../_interfaces';
 import { AuthenticationService } from '../_services';
@@ -11,12 +11,13 @@ import { Observable } from 'rxjs';
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit {  
   loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
   message: string;
+  mySubscription: any;
 
   model: ILogin = { emailId: "admin@cyber.dk", password: "admin123" };
 
@@ -24,8 +25,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthenticationService
-  ) {
-
+  ) {    
   }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     this.returnUrl = '/dashboard';
     this.authService.logout();
-  }
+  }  
 
   get f() { return this.loginForm.controls; }
 

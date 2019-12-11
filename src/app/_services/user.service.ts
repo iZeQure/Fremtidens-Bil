@@ -20,14 +20,14 @@ constructor(private router: Router) { }
     // return this.router.navigate(['/dashboard']); // Navigate to dashboard, if login succeeds.
   }
 
-  getData() {
+  getData(): boolean {
     return JSON.parse(localStorage.getItem('isLoggedIn'));
   }
 
-  logout() {
+  async logout() {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.clear();
-    return this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+    await this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/login']);
     });
     // return this.router.navigate(['/login']);

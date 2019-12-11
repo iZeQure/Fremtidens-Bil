@@ -1,0 +1,162 @@
+<div class="overflow-hidden" id="img-container">
+  <img src="../../assets/img/cyber-background.svg" class="position-fixed">
+</div>
+
+<div id="register-form-container" class="position-absolute">
+  <div class="rounded m-4 p-5 text-white" id="register-container-bg">
+    <div class="row" *ngIf="error">
+      <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+          {{ alertMessage }}
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-6">
+              <h4>{{ registerFormTitle[0] }}</h4>
+
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="inputFirstName">Fornavn:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" id="inputFirstName"
+                      aria-describedby="firstNameHelp" placeholder="Indtast Fornavn" formControlName="firstName">
+                    <div *ngIf="submitted && f.firstName.errors">
+                      <div *ngIf="f.firstName.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="inputLastName">Efternavn:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" id="inputlastName"
+                      aria-describedby="lastNameHelp" placeholder="Indtast Efternavn" formControlName="lastName">
+                    <div *ngIf="submitted && f.lastName.errors">
+                      <div *ngIf="f.lastName.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-7">
+                  <div class="form-group">
+                    <label for="inputCprNumber">CPR-Nummer:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.cprNumber.errors }" id="inputCprNumber"
+                      aria-describedby="cprNumberHelp" placeholder="Indtast CPR-Nummer" formControlName="cprNumber">
+                    <div *ngIf="submitted && f.cprNumber.errors">
+                      <div *ngIf="f.cprNumber.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-5">
+                  <div class="form-group">
+                    <label for="inputFingerId">Finger-ID:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.fingerId.errors }" id="inputFingerId"
+                      aria-describedby="fingerIdHelp" placeholder="Indtast Finger-ID" formControlName="fingerId">
+                    <div *ngIf="submitted && f.fingerId.errors">
+                      <div *ngIf="f.fingerId.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="inputUserName">Brugernavn:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" id="inputUserName"
+                      aria-describedby="userNameHelp" placeholder="Indtast Brugernavn" formControlName="userName">
+                    <div *ngIf="submitted && f.userName.errors">
+                      <div *ngIf="f.userName.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="inputPhoneNumber">Telefon-Nummer:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" id="inputPhoneNumber"
+                      aria-describedby="phoneNumberHelp" placeholder="Indtast Telefon-Nummer"
+                      formControlName="phoneNumber">
+                    <div *ngIf="submitted && f.phoneNumber.errors">
+                      <div *ngIf="f.phoneNumber.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <h4>{{ registerFormTitle[1] }}</h4>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="inputEmail">Email-Adresse:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="inputEmail"
+                      aria-describedby="emailHelp" placeholder="Indtast Email" formControlName="email">
+                    <div *ngIf="submitted && f.email.errors">
+                      <div *ngIf="f.email.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="inputPassword">Adgangskode:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword"
+                      aria-describedby="passwordHelp" placeholder="Indtast Adgangskode" formControlName="password">
+                    <div *ngIf="submitted && f.password.errors">
+                      <div *ngIf="f.password.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="inputRepeatPassword">Adgangskode:</label>
+                    <input type="text" class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }" id="inputRepeatPassword"
+                      aria-describedby="repeatPasswordHelp" placeholder="Gentag Adgangskode"
+                      formControlName="repeatPassword">
+                    <div *ngIf="submitted && f.repeatPassword.errors">
+                      <div *ngIf="f.repeatPassword.errors.required">Field is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12 text-center">
+          <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+            {{ registerUserBtn }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

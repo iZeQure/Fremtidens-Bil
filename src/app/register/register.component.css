@@ -1,0 +1,18 @@
+#register-form-container {
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    min-width: 1300px;
+    min-height: auto;
+    max-height: 700px;
+    z-index: 1;
+}
+
+#register-form-container>#register-container-bg {
+    background: rgba(58, 78, 147, 0.90);
+}
+
+.form-group>label {
+    font-size: 1.3rem;
+}

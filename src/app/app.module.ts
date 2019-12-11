@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthenticationGuard } from './_guards';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
    declarations: [
@@ -16,6 +17,7 @@ import { AuthenticationGuard } from './_guards';
       LoginComponent,
       DashboardComponent,
       PageNotFoundComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
@@ -23,7 +25,11 @@ import { AuthenticationGuard } from './_guards';
       FormsModule,
       ReactiveFormsModule
    ],
-   providers: [AuthenticationGuard],
-   bootstrap: [AppComponent]
+   providers: [
+      AuthenticationGuard
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }
