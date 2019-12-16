@@ -1,3 +1,7 @@
 #img-container {
     z-index: -1;
 }
+
+.text-error {
+    color: #ff0000;
+}

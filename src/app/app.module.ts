@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthenticationGuard } from './_guards';
 import { RegisterComponent } from './register/register.component';
+import { DigitOnlyDirective } from './_directives/digit-only.directive';
 
 @NgModule({
    declarations: [
@@ -17,7 +18,8 @@ import { RegisterComponent } from './register/register.component';
       LoginComponent,
       DashboardComponent,
       PageNotFoundComponent,
-      RegisterComponent
+      RegisterComponent,
+      DigitOnlyDirective
    ],
    imports: [
       BrowserModule,

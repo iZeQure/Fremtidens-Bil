@@ -17,30 +17,38 @@
         <div class="col-sm-12">
           <div class="row">
             <div class="col-6">
-              <h4>{{ registerFormTitle[0] }}</h4>
+              <h2 class="header-spacing">{{ registerFormTitle[0] }}</h2>
 
               <div class="row">
                 <div class="col-6">
                   <div class="form-group">
-                    <label for="inputFirstName">Fornavn:</label>
+                    <label for="inputFirstName">Fornavn:
+                      <div
+                        *ngIf="firstName.invalid && (firstName.dirty || firstName.touched) || (submitted && firstName.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="firstName.errors.required">*</div>
+                      </div>
+                    </label>
                     <input type="text" class="form-control form-control-lg"
-                      [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" id="inputFirstName"
-                      aria-describedby="firstNameHelp" placeholder="Indtast Fornavn" formControlName="firstName">
-                    <div *ngIf="submitted && f.firstName.errors">
-                      <div *ngIf="f.firstName.errors.required">Field is required</div>
-                    </div>
+                      [ngClass]="{ 'is-invalid': submitted && firstName.errors }" id="inputFirstName"
+                      aria-describedby="firstNameHelp" placeholder="Indtast Fornavn" formControlName="firstName"
+                      autocomplete="off">
                   </div>
                 </div>
 
                 <div class="col-6">
                   <div class="form-group">
-                    <label for="inputLastName">Efternavn:</label>
+                    <label for="inputLastName">Efternavn:
+                      <div
+                        *ngIf="lastName.invalid && (lastName.dirty || lastName.touched) || (submitted && lastName.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="lastName.errors.required">*</div>
+                      </div>
+                    </label>
                     <input type="text" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" id="inputlastName"
-                      aria-describedby="lastNameHelp" placeholder="Indtast Efternavn" formControlName="lastName">
-                    <div *ngIf="submitted && f.lastName.errors">
-                      <div *ngIf="f.lastName.errors.required">Field is required</div>
-                    </div>
+                      aria-describedby="lastNameHelp" placeholder="Indtast Efternavn" formControlName="lastName"
+                      autocomplete="off">
                   </div>
                 </div>
               </div>
@@ -48,25 +56,33 @@
               <div class="row">
                 <div class="col-7">
                   <div class="form-group">
-                    <label for="inputCprNumber">CPR-Nummer:</label>
-                    <input type="text" class="form-control form-control-lg"
+                    <label for="inputCprNumber">CPR-Nummer:
+                      <div
+                        *ngIf="cprNumber.invalid && (cprNumber.dirty || cprNumber.touched) || (submitted && cprNumber.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="cprNumber.errors.required">*</div>
+                      </div>
+                    </label>
+                    <input type="password" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.cprNumber.errors }" id="inputCprNumber"
-                      aria-describedby="cprNumberHelp" placeholder="Indtast CPR-Nummer" formControlName="cprNumber">
-                    <div *ngIf="submitted && f.cprNumber.errors">
-                      <div *ngIf="f.cprNumber.errors.required">Field is required</div>
-                    </div>
+                      aria-describedby="cprNumberHelp" placeholder="Indtast CPR-Nummer" formControlName="cprNumber"
+                      autocomplete="off" digitOnly pattern="[0-9]*" maxlength="10">
                   </div>
                 </div>
 
                 <div class="col-5">
                   <div class="form-group">
-                    <label for="inputFingerId">Finger-ID:</label>
+                    <label for="inputFingerId">Finger-ID:
+                      <div
+                        *ngIf="fingerId.invalid && (fingerId.dirty || fingerId.touched) || (submitted && fingerId.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="fingerId.errors.required">*</div>
+                      </div>
+                    </label>
                     <input type="text" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.fingerId.errors }" id="inputFingerId"
-                      aria-describedby="fingerIdHelp" placeholder="Indtast Finger-ID" formControlName="fingerId">
-                    <div *ngIf="submitted && f.fingerId.errors">
-                      <div *ngIf="f.fingerId.errors.required">Field is required</div>
-                    </div>
+                      aria-describedby="fingerIdHelp" placeholder="Indtast Finger-ID" formControlName="fingerId"
+                      autocomplete="off" digitOnly pattern="[0-9]*" maxlength="3">
                   </div>
                 </div>
               </div>
@@ -74,44 +90,54 @@
               <div class="row">
                 <div class="col-6">
                   <div class="form-group">
-                    <label for="inputUserName">Brugernavn:</label>
+                    <label for="inputUserName">Brugernavn:
+                      <div
+                        *ngIf="userName.invalid && (userName.dirty || userName.touched) || (submitted && userName.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="userName.errors.required">*</div>
+                      </div>
+                    </label>
                     <input type="text" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" id="inputUserName"
-                      aria-describedby="userNameHelp" placeholder="Indtast Brugernavn" formControlName="userName">
-                    <div *ngIf="submitted && f.userName.errors">
-                      <div *ngIf="f.userName.errors.required">Field is required</div>
-                    </div>
+                      aria-describedby="userNameHelp" placeholder="Indtast Brugernavn" formControlName="userName"
+                      autocomplete="off">
                   </div>
                 </div>
 
                 <div class="col-6">
                   <div class="form-group">
-                    <label for="inputPhoneNumber">Telefon-Nummer:</label>
+                    <label for="inputPhoneNumber">Telefon-Nummer:
+                      <div
+                        *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched) || (submitted && phoneNumber.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="phoneNumber.errors.required">*</div>
+                      </div>
+                    </label>
                     <input type="text" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" id="inputPhoneNumber"
                       aria-describedby="phoneNumberHelp" placeholder="Indtast Telefon-Nummer"
-                      formControlName="phoneNumber">
-                    <div *ngIf="submitted && f.phoneNumber.errors">
-                      <div *ngIf="f.phoneNumber.errors.required">Field is required</div>
-                    </div>
+                      formControlName="phoneNumber" autocomplete="off" digitOnly pattern="[0-9]*" maxlength="8">
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="col-6">
-              <h4>{{ registerFormTitle[1] }}</h4>
+              <h2 class="header-spacing">{{ registerFormTitle[1] }}</h2>
 
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label for="inputEmail">Email-Adresse:</label>
-                    <input type="text" class="form-control form-control-lg"
+                    <label for="inputEmail">Email-Adresse:
+                      <div *ngIf="email.invalid && (email.dirty || email.touched) || (submitted && email.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="email.errors.required">*</div>
+                      </div>
+                    </label>
+                    <input type="email" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="inputEmail"
-                      aria-describedby="emailHelp" placeholder="Indtast Email" formControlName="email">
-                    <div *ngIf="submitted && f.email.errors">
-                      <div *ngIf="f.email.errors.required">Field is required</div>
-                    </div>
+                      aria-describedby="emailHelp" placeholder="Indtast Email" formControlName="email"
+                      autocomplete="off">
                   </div>
                 </div>
               </div>
@@ -119,13 +145,17 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label for="inputPassword">Adgangskode:</label>
-                    <input type="text" class="form-control form-control-lg"
+                    <label for="inputPassword">Adgangskode:
+                      <div
+                        *ngIf="password.invalid && (password.dirty || password.touched) || (submitted && password.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="password.errors.required">*</div>
+                      </div>
+                    </label>
+                    <input type="password" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword"
-                      aria-describedby="passwordHelp" placeholder="Indtast Adgangskode" formControlName="password">
-                    <div *ngIf="submitted && f.password.errors">
-                      <div *ngIf="f.password.errors.required">Field is required</div>
-                    </div>
+                      aria-describedby="passwordHelp" placeholder="Indtast Adgangskode" formControlName="password"
+                      autocomplete="off">
                   </div>
                 </div>
               </div>
@@ -133,14 +163,17 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label for="inputRepeatPassword">Adgangskode:</label>
-                    <input type="text" class="form-control form-control-lg"
+                    <label for="inputRepeatPassword">Gentag Adgangskode:
+                      <div
+                        *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched) || (submitted && repeatPassword.errors)"
+                        class="text-error d-inline-block">
+                        <div *ngIf="repeatPassword.errors.required">*</div>
+                      </div>
+                    </label>
+                    <input type="password" class="form-control form-control-lg"
                       [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }" id="inputRepeatPassword"
                       aria-describedby="repeatPasswordHelp" placeholder="Gentag Adgangskode"
-                      formControlName="repeatPassword">
-                    <div *ngIf="submitted && f.repeatPassword.errors">
-                      <div *ngIf="f.repeatPassword.errors.required">Field is required</div>
-                    </div>
+                      formControlName="repeatPassword" autocomplete="off">
                   </div>
                 </div>
               </div>
@@ -149,11 +182,25 @@
         </div>
       </div>
 
-      <div class="row mt-2">
-        <div class="col-12 text-center">
-          <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
-            {{ registerUserBtn }}
-          </button>
+      <div class="btn-spacing">
+        <div class="row">
+          <div class="col-12 text-center">
+            <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+              {{ registerUserBtn }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="mx-auto text-center">
+              <button class="btn btn-sm btn-outline-secondary text-white" [routerLink]="['/login']">
+                Allerede oprettet? Log ind
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </form>

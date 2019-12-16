@@ -1,1 +1,2 @@
-export * from './ILogin';
+export * from './ilogin';
+export * from './iregister';

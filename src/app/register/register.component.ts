@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../_services';
+import { Observable } from 'rxjs';
+import { IRegister } from '../_interfaces';
+import { DigitOnlyDirective } from '../_directives';
 
 @Component({
   selector: 'app-register',
@@ -9,20 +10,32 @@ import { AuthenticationService } from '../_services';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  digitOnly: DigitOnlyDirective;
+
   registerFormTitle: any[];
   registerUserBtn: any;
+  inputElement: any;
   returnUrl: string;
-  submitted: boolean;
-  error: boolean;
   alertMessage: string;
+  submitted: boolean;
+  loading: boolean
+  error: boolean;
 
   // Form Controller
   registerForm: FormGroup;
+  model: IRegister = { 
+    firstName: 'a',
+    lastName: 'b',
+    cprNumber: '1234567890',
+    fingerId: 1,
+    userName: 'test',
+    phoneNumber: '12345678',
+    email: 'test@cyber.dk',
+    password: 'test'
+  };
 
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private authService: AuthenticationService
+    private formBuilder: FormBuilder
     ) { }
 
   ngOnInit() {
@@ -31,45 +44,103 @@ export class RegisterComponent implements OnInit {
     this.registerUserBtn = 'Registrer Bruger';
     this.returnUrl = '/dashboard';
 
-    // this.registerForm = new FormGroup({
-    //   firstName: new FormControl(),
-    //   lastName: new FormControl(),
-    //   cprNumber: new FormControl(),
-    //   fingerId: new FormControl(),
-    //   userName: new FormControl(),
-    //   phoneNumber: new FormControl(),
-    //   email: new FormControl(),
-    //   password: new FormControl(),
-    //   repeatPassword: new FormControl()
-    // });
-
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      cprNumber: ['', Validators.required],
-      fingerId: ['', Validators.required],
-      userName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      repeatPassword: ['', Validators.required]
+      firstName: new FormControl(
+        null, {
+          validators: [
+            Validators.required
+          ]
+        }        
+      ),
+      lastName: [
+        null, 
+        Validators.required
+      ],
+      cprNumber: [
+        null, 
+        Validators.required
+      ],
+      fingerId: [
+        null,
+        Validators.required
+      ],
+      userName: [
+        null, 
+        Validators.required
+      ],
+      phoneNumber: new FormControl(
+        null, {
+          validators: [
+            Validators.required
+          ]
+        } 
+      ),
+      email: [
+        null, 
+        Validators.required
+        // Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+      ],
+      password: [
+        null, 
+        Validators.required
+      ],
+      repeatPassword: [
+        null, 
+        Validators.required
+      ]
     })
   }
 
   get f() { return this.registerForm.controls; }
 
+  // Get User Fields.
+  get firstName() { return this.registerForm.get('firstName'); }
+  get lastName() { return this.registerForm.get('lastName'); }
+  get cprNumber() { return this.registerForm.get('cprNumber'); }
+  get fingerId() { return this.registerForm.get('fingerId'); }
+  get userName() { return this.registerForm.get('userName'); }
+  get phoneNumber() { return this.registerForm.get('phoneNumber'); }
+  get email() { return this.registerForm.get('email'); }
+  get password() { return this.registerForm.get('password'); }
+  get repeatPassword() { return this.registerForm.get('repeatPassword'); }
+
   onRegister(): Observable<Boolean> {
-    console.info('register user');
+    console.info('register user, wait');
+    this.error = true;
     this.submitted = true;
+    this.loading = true;
 
     if(this.registerForm.invalid) {
+      console.info('register user, invalid');
+      this.alertMessage = 'Form is invalid, check information';
+      this.loading = false;
       return;
     }
+
+    console.info('register user, valid');
+    if 
+    (
+      this.f.firstName.value == this.model.firstName &&
+      this.f.lastName.value == this.model.lastName &&
+      this.f.cprNumber.value == this.model.cprNumber &&
+      this.f.fingerId.value == this.model.fingerId &&
+      this.f.userName.value == this.model.userName &&
+      this.f.phoneNumber.value == this.model.phoneNumber
+    ) {
+      if (this.f.email.value == this.model.email) {
+        console.warn('true');
+        this.loading = true;
+        this.alertMessage = "Wait a moment, we're redirecting you!"
+        this.delay(1500);
+      }
+    }
+    console.warn('done');
+    this.delay(300);
+    this.loading = false;
+    this.error = false;
   }
 
-  public test() {
-    this.error = true;
-    this.alertMessage = 'test';
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
-
 }

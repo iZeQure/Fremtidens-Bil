@@ -16,3 +16,11 @@
 .form-group>label {
     font-size: 1.3rem;
 }
+
+.header-spacing {
+    margin-bottom: 2rem;
+}
+
+.btn-spacing {
+    margin-top: 2rem;
+}
