@@ -16,9 +16,7 @@ export class DashboardComponent implements OnInit {
   isLoggedIn = false;
   public userData: any;
 
-  constructor(private router: Router, private userService: UserService) { 
-    this.setUserSessionData();
-  }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -28,11 +26,6 @@ export class DashboardComponent implements OnInit {
 
   onLogout() {
     this.userService.logout();
-  }
-
-  public setUserSessionData(){
-    this.userData = this.userService.getData();
-    this.isLoggedIn = !this.userData;
   }
 
   // onLogout() {

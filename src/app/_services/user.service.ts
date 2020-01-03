@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
+  OK: boolean;
 
 constructor(private router: Router) { }
 
@@ -20,7 +21,19 @@ constructor(private router: Router) { }
     // return this.router.navigate(['/dashboard']); // Navigate to dashboard, if login succeeds.
   }
 
-  getData(): boolean {
+  setData(token: string): boolean {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('token', JSON.stringify(token));
+
+    this.OK = true;
+    return this.OK;    
+  }
+
+  getUserToken(): string {
+    return JSON.parse(localStorage.getItem('token'));
+  }
+
+  getLoggedInState(): boolean {
     return JSON.parse(localStorage.getItem('isLoggedIn'));
   }
 
