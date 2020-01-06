@@ -1,6 +1,9 @@
+// app.module.ts
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,10 +14,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthenticationGuard } from './_guards';
 import { RegisterComponent } from './register/register.component';
 import { DigitOnlyDirective } from './_directives/digit-only.directive';
+import { NavigationBarComponent } from './navigation/navigation-bar/navigation-bar.component';
 
 @NgModule({
    declarations: [
       AppComponent,
+      NavigationBarComponent,
       LoginComponent,
       DashboardComponent,
       PageNotFoundComponent,
@@ -25,7 +30,8 @@ import { DigitOnlyDirective } from './_directives/digit-only.directive';
       BrowserModule,
       AppRoutingModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      HttpClientModule
    ],
    providers: [
       AuthenticationGuard

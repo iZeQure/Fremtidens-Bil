@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ILogin } from '../_interfaces';
-import { AuthenticationService, UserService } from '../_services';
+import { AuthenticationService, UserService, ConfigService } from '../_services';
 
 @Component({
   selector: "app-login",
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   accountLocked: boolean;
   loginAttempts = 5;
 
+  apiData: any;
 
   model: ILogin = { emailId: "admin@cyber.dk", password: "admin123" };
 
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    private config: ConfigService
   ) {    
   }
 
@@ -53,6 +55,20 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+
+    this.config.getAuthAccount(this.f.email.value).subscribe(res => {
+      console.info(res);            
+      // this.apiData = res;
+    });
+
+    this.config.getUserById('0104980627').subscribe(res => {
+      console.info(res);
+    });
+    // console.info(this.config.getUserById('0104980627'));
+
+    // if (this.config.getAuthAccount(this.f.email.value)) {
+    //   console.info(this.config.getAuthAccount(this.f.email.value));
+    // }
     
     if (this.f.email.value == this.model.emailId && this.f.password.value == this.model.password) {      
       this.userData = this.userService.setData(this.f.email.value);

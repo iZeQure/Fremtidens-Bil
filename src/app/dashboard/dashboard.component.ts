@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService, UserService } from '../_services';
+import { UserService } from '../_services';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +14,17 @@ export class DashboardComponent implements OnInit {
   email = localStorage.getItem('token');
 
   isLoggedIn = false;
-  public userData: any;
+  userdata: any;
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(
+    private userService: UserService, 
+    private route: ActivatedRoute
+    ) 
+    { }
 
   ngOnInit(): void {
-
-    this.userService.getLoggedInName.subscribe(name => this.userData = name);
+    this.userdata = this.route.snapshot.data.userdata; // get data from resolver
+    // this.userService.getLoggedInName.subscribe(name => this.userData = name);
     // this.emailId = localStorage.getItem('token');
   }
 
