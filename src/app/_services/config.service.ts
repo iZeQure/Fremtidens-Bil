@@ -25,6 +25,12 @@ export class ConfigService {
             .get(`${API_URL}/user/id/${id}`, {headers: HEADERS});
   }
 
+  putHeartbeatFromFringerPrintId(fingerPrintId: number, heartRate: number) {
+    return this
+            .http
+            .put(`${API_URL}/user/`);
+  }
+
   private handleError(operation = 'operation', result?: any) {
     return (error: any): Observable<any> => {
       console.error(error);
