@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
@@ -13,6 +13,10 @@ const API_URL = 'http://10.108.226.9/Fremtidens-Bil-API/api';
 export class ConfigService {
   constructor(private http: HttpClient) { }
 
+  get apiURL() {
+    return API_URL;
+  }
+
   getAuthAccount(mail: string) {
     return this
             .http
@@ -25,11 +29,11 @@ export class ConfigService {
             .get(`${API_URL}/user/id/${id}`, {headers: HEADERS});
   }
 
-  putHeartbeatFromFringerPrintId(fingerPrintId: number, heartRate: number) {
-    return this
-            .http
-            .put(`${API_URL}/user/`);
-  }
+  // putHeartbeatFromFringerPrintId(fingerPrintId: number, heartRate: number) {
+  //   return this
+  //           .http
+  //           .put(`${API_URL}/user/`);
+  // }
 
   private handleError(operation = 'operation', result?: any) {
     return (error: any): Observable<any> => {

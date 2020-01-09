@@ -1,111 +1,65 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
 
-import { ILogin } from '../_interfaces';
-import { AuthenticationService, UserService, ConfigService } from '../_services';
+import { AuthenticationService, AlertService, DataService } from "../_services";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent implements OnInit {  
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
-  submitted = false;
-  mySubscription: any;
-  returnUrl: string;
-  message: string;
-  
-  userData: boolean;
-  accountLocked: boolean;
-  loginAttempts = 5;
-
-  apiData: any;
-
-  model: ILogin = { emailId: "admin@cyber.dk", password: "admin123" };
+  submitted = true;
 
   constructor(
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthenticationService,
-    private userService: UserService,
-    private config: ConfigService
-  ) {    
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService,
+    private dataService: DataService
+  ) {
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: [null, Validators.required],
+      password: [null, Validators.required]
     });
+  }
 
-    this.returnUrl = '/dashboard';
-    this.authService.logout();
-  }  
-
+  // Get Form Controls
   get f() { return this.loginForm.controls; }
 
-  onLogin(): Observable<Boolean> {
-    console.warn('login called');
-    this.submitted = true;
+  // Login Fields
+  get email() { return this.loginForm.get('email'); }
+  get password() { return this.loginForm.get('password'); }
 
+  onLogin() {
+    const val = this.loginForm.value;
+
+    // stop if form invalid
     if (this.loginForm.invalid) {
+      this.alertService.error('Fill out all fields!');
       return;
     }
 
-    this.config.getAuthAccount(this.f.email.value).subscribe(res => {
-      console.info(res);            
-      // this.apiData = res;
-    });
+    const formData = new FormData();
+    formData.append('Credential.MailAddress', val.email);
+    formData.append('Credential.Password', val.password);
 
-    this.config.getUserById('0104980627').subscribe(res => {
-      console.info(res);
-    });
-    // console.info(this.config.getUserById('0104980627'));
+    this.authenticationService.logIn(formData).subscribe(
+      (data) => {
+        if (data === true) {
+          this.authenticationService.storeToken(val.email);
+          this.router.navigateByUrl('/');
+        }
 
-    // if (this.config.getAuthAccount(this.f.email.value)) {
-    //   console.info(this.config.getAuthAccount(this.f.email.value));
-    // }
-    
-    if (this.f.email.value == this.model.emailId && this.f.password.value == this.model.password) {      
-      this.userData = this.userService.setData(this.f.email.value);
-
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.loginAttempts --; // Decrement by on.
-      this.message = "Please check your credentials";
-      console.info("Attempts: " + this.loginAttempts);
-
-      if (this.loginAttempts == 0) {
-        this.message = "Account is locked";
-        this.loading = true;
+        this.alertService.error('Email and Password, does not match, try again..', false);
       }
-    }
-
-    // if (this.f.email.value == this.model.emailId && this.f.password.value == this.model.password) {
-    //   this.message = 'Please wait a moment...';
-
-    //   localStorage.setItem('isLoggedIn', 'true');
-    //   localStorage.setItem('token', this.f.email.value);
-
-    //   this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-    //     this.router.navigate([this.returnUrl]);
-    //   });
-    //   // this.router.navigate([this.returnUrl]);
-    // }
-    // else {
-    //   this.message = 'Please check your credentials';
-    // }
-
-    // this.loading = true;
-    // this.message = "This feature isn't available yet.";
-
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   this.message = '';
-    // }, 2000);
+    );
   }
 }

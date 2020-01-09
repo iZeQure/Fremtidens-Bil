@@ -1,40 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-import { UserService } from '../_services';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthenticationService } from '../_services';
+import { Router } from '@angular/router';
+import { User } from '../_models';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
-  message = 'Alert: Cannot connect to server..';
+export class DashboardComponent implements OnDestroy  {
+  currentUser: User;
+  currentUserSubscription: Subscription;
 
-  email = localStorage.getItem('token');
+  constructor(private authService: AuthenticationService, private router: Router) {
+    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
+   }
 
-  isLoggedIn = false;
-  userdata: any;
-
-  constructor(
-    private userService: UserService, 
-    private route: ActivatedRoute
-    ) 
-    { }
-
-  ngOnInit(): void {
-    this.userdata = this.route.snapshot.data.userdata; // get data from resolver
-    // this.userService.getLoggedInName.subscribe(name => this.userData = name);
-    // this.emailId = localStorage.getItem('token');
+  ngOnDestroy() {
+    this.currentUserSubscription.unsubscribe();
   }
 
   onLogout() {
-    this.userService.logout();
+    this.authService.logOut();
+    this.router.navigateByUrl('/login');
   }
-
-  // onLogout() {
-  //   console.warn('Logout');
-  //   this.authService.logout();
-  //   this.router.navigate(['/login']);
-  // }
 }

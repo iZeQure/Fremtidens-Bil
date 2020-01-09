@@ -5,31 +5,36 @@
 <div id="login-form-container" class="position-absolute">
   <div class="rounded m-4 p-5" id="login-container-bg">
     <!-- Error Message -->
-    <p *ngIf="message" class="alert alert-warning">{{message}}</p>
+    <alert></alert>
 
     <!-- Login Form -->
     <form class="text-white" [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
       <!-- Email -->
       <div class="form-group">
-        <label for="inputEmail">Email:</label>
+        <label for="inputEmail">Email:
+          <div *ngIf="email.invalid && (email.dirty || email.touched) || (submitted && email.errors)"
+            class="text-error d-inline-block">
+            <div *ngIf="email.errors.required">*</div>
+          </div>
+        </label>
         <input type="email" class="form-control form-control-lg"
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="inputEmail" aria-describedby="emailHelp"
           placeholder="Enter Email" formControlName="email">
-        <div *ngIf="submitted && f.email.errors">
-          <div *ngIf="f.email.errors.required">Email is required</div>
-        </div>
       </div>
 
       <!-- Password -->
       <div class="form-group">
-        <label for="inputPassword">Password:</label>
+        <label for="inputPassword">Password:
+          <div *ngIf="password.invalid && (password.dirty || password.touched) || (submitted && password.errors)"
+            class="text-error d-inline-block">
+            <div *ngIf="password.errors.required">*</div>
+          </div>
+        </label>
+
         <input type="password" class="form-control form-control-lg"
           [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword"
           aria-describedby="passwordHelp" placeholder="••••••••••" formControlName="password">
-        <div *ngIf="submitted && f.password.errors">
-          <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
       </div>
 
       <!-- Login -->
@@ -38,7 +43,8 @@
 
         <ng-template #loadingBlock>
           <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
-            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <img
+              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           </button>
         </ng-template>
 
