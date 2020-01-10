@@ -11,6 +11,7 @@ import { AuthenticationService, AlertService, DataService } from "../_services";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  jsonData: any;
   loading = false;
   submitted = true;
 
