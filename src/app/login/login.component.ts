@@ -11,9 +11,10 @@ import { AuthenticationService, AlertService, DataService } from "../_services";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  jsonData: any;
   loading = false;
   submitted = true;
+
+  checkEmailExists: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,6 +48,8 @@ export class LoginComponent implements OnInit {
       this.alertService.error('Fill out all fields!');
       return;
     }
+
+    
 
     const formData = new FormData();
     formData.append('Credential.MailAddress', val.email);

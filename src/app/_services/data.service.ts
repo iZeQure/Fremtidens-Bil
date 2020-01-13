@@ -65,8 +65,8 @@ export class DataService {
    * if user id & email does not exists.
    * @param formData
    */
-  postCreateUser(formData: FormData) {
-    return this.http.post(`${ROOT_API_URL}user/create`, formData, { /*params: new HttpParams().set('token', localStorage.getItem('token')),*/ headers: API_HEADERS[0] });      
+  postCreateUser(formData: FormData): Observable<Object> {
+    return this.http.post(`${ROOT_API_URL}user/create`, formData, { headers: API_HEADERS[0] });      
   }
 
   /**

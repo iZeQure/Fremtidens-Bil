@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
+import { SecurityService } from './security.service';
 import { User } from '../_models';
 
 @Injectable({
@@ -9,8 +10,12 @@ import { User } from '../_models';
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private testvalue: any;
 
-  constructor(private dataService: DataService) {
+  private getPassword: FormDataEntryValue;
+  private getId: FormDataEntryValue;
+
+  constructor(private dataService: DataService, private securityService: SecurityService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.getToken()));
     this.currentUser = this.currentUserSubject.asObservable();
   }

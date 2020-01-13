@@ -2,64 +2,81 @@
   <img src="/assets/img/cyber-background.svg" class="position-fixed">
 </div>
 
-<div id="login-form-container" class="position-absolute">
-  <div class="rounded m-4 p-5" id="login-container-bg">
-    <!-- Error Message -->
-    <alert></alert>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
 
-    <!-- Login Form -->
-    <form class="text-white" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <!-- form card login -->
+          <div class="card rounded text-white shadow shadow-sm" style="background-color: rgba(58, 78, 147, 0.80); ">
+            <div class="card-header">
+              <h3 class="mb-0">Cybertruck Central Log Ind</h3>
+            </div>
+            <div class="card-body">
+              <!-- Error Message -->
+              <alert></alert>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="inputEmail">Email:
-          <div *ngIf="email.invalid && (email.dirty || email.touched) || (submitted && email.errors)"
-            class="text-error d-inline-block">
-            <div *ngIf="email.errors.required">*</div>
+              <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+                <!-- Email -->
+                <div class="form-group">
+                  <label for="inputEmail">Email:
+                    <div *ngIf="email.invalid && (email.dirty || email.touched) || (submitted && email.errors)"
+                      class="text-error d-inline-block">
+                      <div *ngIf="email.errors.required">*</div>
+                    </div>
+                  </label>
+                  <input type="email" class="form-control form-control-lg"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="inputEmail"
+                    aria-describedby="emailHelp" placeholder="Enter Email" formControlName="email">
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                  <label for="inputPassword">Password:
+                    <div
+                      *ngIf="password.invalid && (password.dirty || password.touched) || (submitted && password.errors)"
+                      class="text-error d-inline-block">
+                      <div *ngIf="password.errors.required">*</div>
+                    </div>
+                  </label>
+
+                  <input type="password" class="form-control form-control-lg"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword"
+                    aria-describedby="passwordHelp" placeholder="••••••••••" formControlName="password">
+                </div>
+
+                <!-- Login -->
+                <div class="form-group mx-auto text-center">
+                  <div *ngIf="loading; then loadingBlock else loginBlock"></div>
+
+                  <ng-template #loadingBlock>
+                    <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+                      <img
+                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </button>
+                  </ng-template>
+
+                  <ng-template #loginBlock>
+                    <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
+                      Log ind
+                    </button>
+                  </ng-template>
+                </div>
+
+              </form>
+
+              <div class="mx-auto text-center">
+                <button class="btn btn-sm btn-outline-secondary text-white" [routerLink]="['/register']">Opret
+                  Bruger?</button>
+              </div>
+
+            </div>
           </div>
-        </label>
-        <input type="email" class="form-control form-control-lg"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="inputEmail" aria-describedby="emailHelp"
-          placeholder="Enter Email" formControlName="email">
+
+        </div>
       </div>
-
-      <!-- Password -->
-      <div class="form-group">
-        <label for="inputPassword">Password:
-          <div *ngIf="password.invalid && (password.dirty || password.touched) || (submitted && password.errors)"
-            class="text-error d-inline-block">
-            <div *ngIf="password.errors.required">*</div>
-          </div>
-        </label>
-
-        <input type="password" class="form-control form-control-lg"
-          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword"
-          aria-describedby="passwordHelp" placeholder="••••••••••" formControlName="password">
-      </div>
-
-      <!-- Login -->
-      <div class="form-group mx-auto text-center">
-        <div *ngIf="loading; then loadingBlock else loginBlock"></div>
-
-        <ng-template #loadingBlock>
-          <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
-            <img
-              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-          </button>
-        </ng-template>
-
-        <ng-template #loginBlock>
-          <button class="btn btn-lg btn-primary pl-5 pr-5" type="submit" [disabled]="loading">
-            Log ind
-          </button>
-        </ng-template>
-      </div>
-
-    </form>
-
-    <!-- <a class="nav-link text-white text-center" href="#">Opret Bruger?</a> -->
-    <div class="mx-auto text-center">
-      <button class="btn btn-sm btn-outline-secondary text-white" [routerLink]="['/register']">Opret Bruger?</button>
     </div>
   </div>
 </div>

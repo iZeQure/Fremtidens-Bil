@@ -4,13 +4,9 @@
 
 <div id="register-form-container" class="position-absolute">
   <div class="rounded m-4 p-5 text-white" id="register-container-bg">
-    <div class="row" *ngIf="error">
-      <div class="col-sm-12">
-        <div class="alert alert-warning text-center">
-          {{ alertMessage }}
-        </div>
-      </div>
-    </div>
+    
+    <!-- Error Message -->
+    <alert></alert>
 
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <div class="row">
