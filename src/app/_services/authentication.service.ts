@@ -50,4 +50,8 @@ export class AuthenticationService {
   signUp(userData: FormData): Observable<any> {
     return this.dataService.postCreateUser(userData);
   }
+
+  getUserIdByEmail(mailAddress: string): Observable<any> {
+    return this.dataService.getUserIdByMailAddress(mailAddress);
+  }
 }

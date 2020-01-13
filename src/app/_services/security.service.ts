@@ -18,7 +18,7 @@ export class SecurityService {
 
     this.hashedPassword.then(res => {
       console.warn(`Hashed Password: ${JSON.stringify(res)}`);
-    })   
+    });
 
     return this.hashedPassword;
   }

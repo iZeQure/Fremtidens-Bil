@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 /**
  * URL for the API to connect with the HTTP Client.
  */
-const ROOT_API_URL = 'http://10.108.226.9/Fremtidens-Bil-API/';
+// const ROOT_API_URL = 'http://10.108.226.9/Fremtidens-Bil-API/';' // Production
+const ROOT_API_URL = 'https://localhost:44303/'; // Debugging
 
 const ACR_METHODS = ["GET", "POST", "PUT", "DELETE"];
 
@@ -57,6 +58,10 @@ export class DataService {
    */
   getUserById(user: User) {
     return this.http.get<User>(`${ROOT_API_URL}user/id/${user.id}`, API_HEADERS[2]);
+  }
+
+  getUserIdByMailAddress(mailAddress: string): Observable<Object> {
+    return this.http.get<string>(`${ROOT_API_URL}credential/credentialid/${mailAddress}`, API_HEADERS[0]);
   }
 
   /**

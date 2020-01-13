@@ -5,6 +5,9 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Displays any kind of alert message for the client users.
+ */
 export class AlertService {
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
@@ -24,16 +27,62 @@ export class AlertService {
     });
   }
 
+  /**
+   * Success Message.
+   * @param message 
+   * @param keepAfterNavigationChange 
+   */
   success(message: string, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({ type: 'success', text: message });
+    this.subject.next({ type: 'success', text: message } );
   }
 
+  /**
+   * Danger Message.
+   * @param message 
+   * @param keepAfterNavigationChange 
+   */
+  danger(message: string, keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next( { type: 'danger', text: message } );
+  }
+
+  /**
+   * Warning Message.
+   * @param message 
+   * @param keepAfterNavigationChange 
+   */
+  warning(message: string, keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next( { type: 'warning', text: message } );
+  }
+
+  /**
+   * Information Message.
+   * @param message 
+   * @param keepAfterNavigationChange 
+   */
+  info(message: string, keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next( { type: 'info', text: message } );
+  }
+
+  /**
+   * Error or Critical Message.
+   * @param message 
+   * @param keepAfterNavigationChange 
+   */
   error(message: string, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({ type: 'error', text: message });
+    this.subject.next({ type: 'error', text: message } );
   }
 
+  /**
+   * Used by the alert component, 
+   * no need to use this method,
+   * causes uneccesary problems.
+   * @returns Observable<any>
+   */
   getMessage(): Observable<any> {
     return this.subject.asObservable();
   }
