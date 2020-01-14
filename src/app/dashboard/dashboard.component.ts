@@ -11,11 +11,14 @@ import { Subscription } from 'rxjs';
 export class DashboardComponent implements OnDestroy  {
   currentUser: User;
   currentUserSubscription: Subscription;
+  accountName: string;
 
   constructor(private authService: AuthenticationService, private router: Router) {
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
+
+    this.accountName = JSON.parse(this.authService.getToken());
    }
 
   ngOnDestroy() {

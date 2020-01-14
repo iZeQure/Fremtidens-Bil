@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 /**
  * URL for the API to connect with the HTTP Client.
  */
-// const ROOT_API_URL = 'http://10.108.226.9/Fremtidens-Bil-API/';' // Production
-const ROOT_API_URL = 'https://localhost:44303/'; // Debugging
+const ROOT_API_URL = 'http://10.108.226.9/Fremtidens-Bil-API/'; // Production
+//const ROOT_API_URL = 'https://localhost:44303/'; // Debugging
 
 const ACR_METHODS = ["GET", "POST", "PUT", "DELETE"];
 
